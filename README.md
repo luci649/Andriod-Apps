@@ -1,8 +1,8 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/kdk5JAJF)
 # DMA-2024 Programming Portfolio
 
-## TYPE YOUR NAME HERE
-## TYPE YOUR STUDENT ID
+## Luciano Delancy
+## C3550410
 
 By submitting this work you are confirming that the work in this repo is your own, with all credit given to any sources of help. 
 Such sources might include software tools, internet tutorials/references, AI.
