@@ -16,12 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.affirmations.ui.theme.AffirmationsTheme
 import com.example.model.Affirmation
+import com.example.data.Datasource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.platform.LocalContext
 
 class MainActivity : ComponentActivity() {
@@ -73,6 +76,18 @@ fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier){
 @Composable
 private fun AffirmationsCardPreview() {
     AffirmationsTheme {
+        AffirmationCard(Affirmation(R.string.affirmation1, R.drawable.image1))
+    }
+}
 
+@Composable
+fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier){
+    LazyColumn(modifier = modifier){
+        items(affirmationList){affirmation ->
+            AffirmationCard(
+                affirmation = affirmation,
+                modifier = modifier.padding(8.dp)
+            )
+        }
     }
 }
