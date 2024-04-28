@@ -46,7 +46,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainPage(modifier: Modifier = Modifier) {
-
+    AffirmationList(
+        affirmationList = Datasource().loadAffirmations())
 }
 
 @Composable
