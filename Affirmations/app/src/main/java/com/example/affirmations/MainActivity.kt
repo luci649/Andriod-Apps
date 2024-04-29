@@ -1,6 +1,8 @@
 package com.example.affirmations
 
+import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -20,6 +22,7 @@ import com.example.data.Datasource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.foundation.layout.padding
@@ -77,18 +80,23 @@ fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier){
 @Composable
 private fun AffirmationsCardPreview() {
     AffirmationsTheme {
-        AffirmationCard(Affirmation(R.string.affirmation1, R.drawable.image1))
+        ///AffirmationCard(Affirmation(R.string.affirmation1, R.drawable.image1))
+        MainPage()
     }
 }
 
 @Composable
 fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier){
+    val context = LocalContext.current
     LazyColumn(modifier = modifier){
         items(affirmationList){affirmation ->
             AffirmationCard(
                 affirmation = affirmation,
-                modifier = modifier.padding(8.dp)
+                modifier = modifier
+                    .padding(8.dp)
+                    .clickable { Toast.makeText(context, affirmation.stringResourceId, Toast.LENGTH_LONG).show()}
             )
         }
     }
 }
+
