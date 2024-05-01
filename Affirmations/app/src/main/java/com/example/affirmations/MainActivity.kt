@@ -1,6 +1,5 @@
 package com.example.affirmations
 
-import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -28,7 +27,12 @@ import androidx.compose.material3.Text
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.window.Dialog
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,14 +52,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainPage(modifier: Modifier = Modifier) {
+fun MainPage() {
     AffirmationList(
         affirmationList = Datasource().loadAffirmations())
 }
 
 @Composable
-fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier){
-    Card(modifier = modifier) {
+fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier, clicker: (Affirmation) -> Unit){
+    Card(modifier = modifier.clickable { clicker(affirmation) }) {
         Column {
             Image(
                 painter = painterResource(affirmation.imageResourceId),
@@ -82,21 +86,67 @@ private fun AffirmationsCardPreview() {
     AffirmationsTheme {
         ///AffirmationCard(Affirmation(R.string.affirmation1, R.drawable.image1))
         MainPage()
+
     }
 }
 
 @Composable
 fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier){
     val context = LocalContext.current
+    val openDialog = remember{ mutableStateOf(false)}
+
     LazyColumn(modifier = modifier){
         items(affirmationList){affirmation ->
             AffirmationCard(
                 affirmation = affirmation,
                 modifier = modifier
-                    .padding(8.dp)
-                    .clickable { Toast.makeText(context, affirmation.stringResourceId, Toast.LENGTH_LONG).show()}
+                    .padding(8.dp),
+                clicker = {
+                    Toast.makeText(context, affirmation.stringResourceId, Toast.LENGTH_LONG).show()
+                    openDialog.value = !openDialog.value
+                }
             )
+            when{
+                openDialog.value -> {
+                    DialogBox(
+                        onDismissRequest = { openDialog.value = false },
+                        painter = painterResource( affirmation.imageResourceId),
+                        imageDescription = stringResource(affirmation.stringResourceId)
+                    )
+                }
+            }
+        }
+    }
+
+}
+
+@Composable
+fun DialogBox(
+    onDismissRequest: () -> Unit,
+    painter: Painter,
+    imageDescription: String
+){
+    Dialog(onDismissRequest = { onDismissRequest()}){
+        Card(
+            modifier = Modifier,
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Column {
+                Image(
+                    painter = painter,
+                    contentDescription = imageDescription,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(194.dp),
+                    contentScale = ContentScale.Crop
+                )
+                Text(
+                    text = imageDescription,
+                    modifier = Modifier
+                            .padding(16.dp),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            }
         }
     }
 }
-
