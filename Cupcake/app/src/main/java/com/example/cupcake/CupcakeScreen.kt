@@ -48,7 +48,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.cupcake.ui.SelectOptionScreen
 import com.example.cupcake.data.OrderUiState
 import com.example.cupcake.ui.OrderSummaryScreen
-import javax.security.auth.Subject
 
 enum class CupcakeScreen(){
     Start,
@@ -145,7 +144,7 @@ fun CupcakeApp(
                     orderUiState = uiState,
                     onCancelButtonClicked = { cancelOrderAndNavigateToStart(viewModel, navController) },
                     onSendButtonClicked = { subject: String, summary: String ->
-                        shareOrder(context, subject = subject, summary = summary)
+                        shareOrder(context, subject, summary)
                     },
                     modifier = Modifier.fillMaxHeight()
                 )
@@ -169,9 +168,11 @@ private fun shareOrder(context: Context, subject: String, summary: String){
         putExtra(Intent.EXTRA_TEXT, summary)
     }
     context.startActivities(
-        Intent.createChooser(
-            intent,
-            context,getString(R.string.new_cupcake_order)
+        arrayOf(
+            Intent.createChooser(
+                intent,
+                context.getString(R.string.new_cupcake_order)
+            )
         )
     )
 }
