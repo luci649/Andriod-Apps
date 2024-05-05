@@ -90,13 +90,28 @@ class OrderViewModel : ViewModel() {
      */
     private fun calculatePrice(
         quantity: Int = _uiState.value.quantity,
-        pickupDate: String = _uiState.value.date
+        pickupDate: String = _uiState.value.date,
+        topping: Double = _uiState.value.topping
     ): String {
         var calculatedPrice = quantity * PRICE_PER_CUPCAKE
+        var tPrice = 0.0
         // If the user selected the first option (today) for pickup, add the surcharge
         if (pickupOptions()[0] == pickupDate) {
-            calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP
+            if (topping == 0.30){
+                tPrice += 0.30
+            }else if (topping == 0.50){
+                tPrice += 0.50
+            }
+            calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP + tPrice
+        }else{
+            if (topping == 0.30){
+                tPrice += 0.30
+            }else if (topping == 0.50){
+                tPrice += 0.50
+            }
+            calculatedPrice += tPrice
         }
+
         val formattedPrice = NumberFormat.getCurrencyInstance().format(calculatedPrice)
         return formattedPrice
     }
@@ -114,5 +129,13 @@ class OrderViewModel : ViewModel() {
             calendar.add(Calendar.DATE, 1)
         }
         return dateOptions
+    }
+
+    fun setTopping(x: Double){
+        _uiState.update {currentState ->
+            currentState.copy(
+                price = calculatePrice(topping = x)
+            )
+        }
     }
 }
