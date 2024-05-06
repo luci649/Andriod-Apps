@@ -32,6 +32,8 @@ private const val PRICE_PER_CUPCAKE = 2.00
 /** Additional cost for same day pickup of an order */
 private const val PRICE_FOR_SAME_DAY_PICKUP = 3.00
 
+private var tPrice = 0.0
+
 /**
  * [OrderViewModel] holds information about a cupcake order in terms of quantity, flavor, and
  * pickup date. It also knows how to calculate the total price based on these order details.
@@ -94,22 +96,9 @@ class OrderViewModel : ViewModel() {
         topping: Double = _uiState.value.topping
     ): String {
         var calculatedPrice = quantity * PRICE_PER_CUPCAKE
-        var tPrice = 0.0
         // If the user selected the first option (today) for pickup, add the surcharge
         if (pickupOptions()[0] == pickupDate) {
-            if (topping == 0.30){
-                tPrice += 0.30
-            }else if (topping == 0.50){
-                tPrice += 0.50
-            }
-            calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP + tPrice
-        }else{
-            if (topping == 0.30){
-                tPrice += 0.30
-            }else if (topping == 0.50){
-                tPrice += 0.50
-            }
-            calculatedPrice += tPrice
+            calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP
         }
 
         val formattedPrice = NumberFormat.getCurrencyInstance().format(calculatedPrice)

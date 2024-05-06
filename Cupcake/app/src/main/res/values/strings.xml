@@ -38,6 +38,7 @@
     <string name="sprinkle">Sprinkles - $0.50 per Cupcake</string>
     <string name="quantity">Quantity</string>
     <string name="flavor">Flavor</string>
+    <string name="Topping">Topping</string>
     <string name="pickup_date">Pickup date</string>
     <string name="subtotal_price">Subtotal %s</string>
     <string name="total_price">Total %s</string>

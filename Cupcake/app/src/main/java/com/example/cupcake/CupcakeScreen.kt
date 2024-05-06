@@ -19,7 +19,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -34,21 +33,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.cupcake.data.DataSource
-import com.example.cupcake.ui.OrderSummaryScreen
 import com.example.cupcake.ui.OrderViewModel
-import com.example.cupcake.ui.SelectOptionScreen
-import com.example.cupcake.ui.SelectOptionToppingScreen
+import androidx.navigation.compose.composable
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.res.dimensionResource
 import com.example.cupcake.ui.StartOrderScreen
+import com.example.cupcake.data.DataSource
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.cupcake.ui.SelectOptionScreen
+import com.example.cupcake.data.OrderUiState
+import com.example.cupcake.ui.OrderSummaryScreen
+import com.example.cupcake.ui.SelectOptionToppingScreen
 
 enum class CupcakeScreen(@StringRes val title: Int){
     Start(title = R.string.app_name),
@@ -127,7 +129,7 @@ fun CupcakeApp(
             }
             composable(route = CupcakeScreen.Flavor.name){
                 val context = LocalContext.current
-                 SelectOptionScreen(
+                SelectOptionScreen(
                     subtotal = uiState.price,
                     onNextButtonClicked = { navController.navigate(CupcakeScreen.Topping.name) },
                     onCancelButtonClicked = { cancelOrderAndNavigateToStart(viewModel, navController) },
@@ -137,7 +139,7 @@ fun CupcakeApp(
                 )
             }
             composable(route = CupcakeScreen.Topping.name){
-                val context = LocalContext.current
+
                 SelectOptionToppingScreen(
                     subtotal = uiState.price,
                     onNextButtonClicked = { navController.navigate(CupcakeScreen.Pickup.name) },
