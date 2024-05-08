@@ -58,6 +58,7 @@ fun OrderSummaryScreen(
         orderUiState.quantity,
         orderUiState.quantity
     )
+
     //Load and format a string resource with the parameters.
     val orderSummary = stringResource(
         R.string.order_details,
@@ -73,7 +74,7 @@ fun OrderSummaryScreen(
         Pair(stringResource(R.string.quantity), numberOfCupcakes),
         // Summary line 2: display selected flavor
         Pair(stringResource(R.string.flavor), orderUiState.flavor),
-        Pair(stringResource(R.string.Topping),orderUiState.topping.toString()),
+        Pair(stringResource(R.string.Topping), orderUiState.toppingString),
         // Summary line 3: display selected pickup date
         Pair(stringResource(R.string.pickup_date), orderUiState.date)
     )
@@ -126,7 +127,7 @@ fun OrderSummaryScreen(
 @Composable
 fun OrderSummaryPreview(){
     OrderSummaryScreen(
-        orderUiState = OrderUiState(0, "Test", "Test", "$300.00"),
+        orderUiState = OrderUiState(0, "Test", "Test", "$300.00",topping = 0.70),
         onSendButtonClicked = { subject: String, summary: String ->},
         onCancelButtonClicked = {},
         modifier = Modifier.fillMaxHeight()

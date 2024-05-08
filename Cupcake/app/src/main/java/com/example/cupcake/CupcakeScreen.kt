@@ -139,7 +139,6 @@ fun CupcakeApp(
                 )
             }
             composable(route = CupcakeScreen.Topping.name){
-
                 SelectOptionToppingScreen(
                     subtotal = uiState.price,
                     onNextButtonClicked = { navController.navigate(CupcakeScreen.Pickup.name) },
