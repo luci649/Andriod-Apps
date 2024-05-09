@@ -15,7 +15,9 @@
  */
 package com.example.cupcake.ui
 
+
 import androidx.lifecycle.ViewModel
+import com.example.cupcake.data.DataSource
 import com.example.cupcake.data.OrderUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,6 +33,8 @@ private const val PRICE_PER_CUPCAKE = 2.00
 
 /** Additional cost for same day pickup of an order */
 private const val PRICE_FOR_SAME_DAY_PICKUP = 3.00
+
+private var tPrice = 0.0
 
 /**
  * [OrderViewModel] holds information about a cupcake order in terms of quantity, flavor, and
@@ -90,13 +94,22 @@ class OrderViewModel : ViewModel() {
      */
     private fun calculatePrice(
         quantity: Int = _uiState.value.quantity,
-        pickupDate: String = _uiState.value.date
+        pickupDate: String = _uiState.value.date,
+        topping: Double = _uiState.value.topping
     ): String {
         var calculatedPrice = quantity * PRICE_PER_CUPCAKE
+        if (topping == 0.30){
+            tPrice = 0.30
+        }else if (topping == 0.50){
+            tPrice = 0.50
+        }
         // If the user selected the first option (today) for pickup, add the surcharge
         if (pickupOptions()[0] == pickupDate) {
-            calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP
+            calculatedPrice += PRICE_FOR_SAME_DAY_PICKUP + tPrice * quantity
+        }else{
+            calculatedPrice += tPrice * quantity
         }
+
         val formattedPrice = NumberFormat.getCurrencyInstance().format(calculatedPrice)
         return formattedPrice
     }
@@ -115,4 +128,31 @@ class OrderViewModel : ViewModel() {
         }
         return dateOptions
     }
+
+    fun setTopping(x: Double){
+        _uiState.update {currentState ->
+            currentState.copy(
+                price = calculatePrice(topping = x),
+                topping = x,
+                toppingString = x(x = x)
+            )
+        }
+    }
+
+    private fun x(x: Double): String{
+        var p = ""
+        val q = DataSource.toppingOption
+
+        for (item in q){
+            if (x == item.second && 0.0 == x){
+                p = "Plain"
+            }else if (x == item.second && 0.30 == x){
+                p = "Powdered Sugar - $0.30 per Cupcake"
+            }else if (x == item.second && 0.50 == x){
+                p = "Sprinkles - 0.50 per Cupcake"
+            }
+        }
+        return p
+    }
+
 }
