@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.ext
-
 /*
  * Copyright (C) 2023 The Android Open Source Project
  *
@@ -23,7 +21,7 @@ plugins {
 }
 
 buildscript{
-    ext{
-        lifecycl_version = '2.5.1'
+    extra.apply{
+        set("lifecycle_version", "2.5.1")
     }
 }

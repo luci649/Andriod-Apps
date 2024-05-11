@@ -15,6 +15,7 @@
  */
 package com.example.cupcake.ui
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,6 +39,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.cupcake.R
+import com.example.cupcake.data.OrderUiState
 import com.example.cupcake.ui.components.FormattedPriceLabel
 
 /**
@@ -47,10 +49,10 @@ import com.example.cupcake.ui.components.FormattedPriceLabel
  * [onNextButtonClicked] lambda that triggers the navigation to next screen
  */
 @Composable
-fun SelectOptionScreen(
+fun SelectOptionToppingScreen(
     subtotal: String,
-    options: List<String>,
-    onSelectionChanged: (String) -> Unit = {},
+    options: List<Pair<Int, Double>>,
+    onSelectionChanged: (Double) -> Unit = {},
     onCancelButtonClicked: () -> Unit = {},
     onNextButtonClicked: () -> Unit = {},
     modifier: Modifier = Modifier
@@ -63,24 +65,25 @@ fun SelectOptionScreen(
     ) {
         Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))){
             options.forEach { item ->
+                val x = stringResource(item.first)
                 Row(
                     modifier = Modifier.selectable(
-                        selected = selectedValue == item,
+                        selected = selectedValue == x,
                         onClick = {
-                            selectedValue = item
-                            onSelectionChanged(item)
+                            selectedValue = x
+                            onSelectionChanged(item.second)
                         }
                     ),
                     verticalAlignment = Alignment.CenterVertically
                 ){
                     RadioButton(
-                        selected = selectedValue == item,
+                        selected = selectedValue == x,
                         onClick = {
-                            selectedValue = item
-                            onSelectionChanged(item)
+                            selectedValue = x
+                            onSelectionChanged(item.second)
                         }
                     )
-                    Text(item)
+                    Text(x)
                 }
             }
             Divider(
@@ -126,7 +129,7 @@ fun SelectOptionScreen(
 
 @Preview
 @Composable
-fun SelectOptionPreview(){
+fun SelectOptionToppingPreview(){
     SelectOptionScreen(
         subtotal = "299.99",
         options = listOf("Option 1", "Option 2", "Option 3", "Option 4"),
