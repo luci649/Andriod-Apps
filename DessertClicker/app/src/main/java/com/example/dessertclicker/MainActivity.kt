@@ -58,11 +58,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
-import com.example.dessertclicker.data.Datasource
-import com.example.dessertclicker.model.Dessert
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.dessertclicker.ui.UiLogicViewModel
 import com.example.dessertclicker.ui.theme.DessertClickerTheme
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 private const val TAG = "MainActivity"
@@ -78,7 +76,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DessertClickerApp(desserts = Datasource.dessertList)
+                    DessertClickerApp()
                 }
             }
         }
@@ -113,25 +111,6 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         Log.d(TAG, "onDestroy Called")
     }
-}
-
-fun determineDessertToShow(
-    desserts: List<Dessert>,
-    dessertsSold: Int
-): Dessert {
-    var dessertToShow = desserts.first()
-    for (dessert in desserts) {
-        if (dessertsSold >= dessert.startProductionAmount) {
-            dessertToShow = dessert
-        } else {
-            // The list of desserts is sorted by startProductionAmount. As you sell more desserts,
-            // you'll start producing more expensive desserts as determined by startProductionAmount
-            // We know to break as soon as we see a dessert who's "startProductionAmount" is greater
-            // than the amount sold.
-            break
-        }
-    }
-    return dessertToShow
 }
 
 /**
@@ -188,7 +167,7 @@ private fun DessertClickerApp(
             revenue = uiState.revenue,
             dessertsSold = uiState.dessertSold,
             dessertImageId = uiState.currentDessertImageId,
-            onDessertClicked = {  },
+            onDessertClicked = { viewModel.desserClicked() },
             modifier = Modifier.padding(contentPadding)
         )
     }
@@ -328,6 +307,6 @@ private fun DessertsSoldInfo(dessertsSold: Int, modifier: Modifier = Modifier) {
 @Composable
 fun MyDessertClickerAppPreview() {
     DessertClickerTheme {
-        DessertClickerApp(listOf(Dessert(R.drawable.cupcake, 5, 0)))
+       // DessertClickerApp(listOf(Dessert(R.drawable.cupcake, 5, 0)))
     }
 }

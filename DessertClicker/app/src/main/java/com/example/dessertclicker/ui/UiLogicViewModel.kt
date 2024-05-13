@@ -14,18 +14,18 @@ class UiLogicViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(DessertUiState())
     val uiState: StateFlow<DessertUiState> = _uiState.asStateFlow()
 
-    fun DesserClicked(dessert: Dessert){
+    fun desserClicked(){
         setRevenue()
-        val dessertToShow = determineDessertToShow(dessert = dessert)
+        val dessertToShow = determineDessertToShow()
         setDessert(dessertToShow)
     }
 
     private fun determineDessertToShow(
-        dessert: Dessert,
         dessertsSold: Int = _uiState.value.dessertSold
     ): Dessert {
-        var dessertToShow = dessert
-        for (dessert in Datasource.dessertList) {
+        val desserts = Datasource.dessertList
+        var dessertToShow = desserts.first()
+        for (dessert in desserts) {
             if (dessertsSold >= dessert.startProductionAmount){
                 dessertToShow = dessert
             }else{
