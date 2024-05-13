@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    DiceRollerApp()
                     DiceWithButtonAndImage(modifier = Modifier
                         .fillMaxSize()
                         .wrapContentSize(Alignment.Center)
