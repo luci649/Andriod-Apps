@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -62,10 +63,16 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(imageResource),
-            contentDescription = result.toString()
-        )
+        Row {
+            Image(
+                painter = painterResource(imageResource),
+                contentDescription = result.toString()
+            )
+            Image(
+                painter = painterResource(imageResource),
+                contentDescription = result.toString()
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { result = (1..6).random() }) {
             Text(stringResource(R.string.roll))
