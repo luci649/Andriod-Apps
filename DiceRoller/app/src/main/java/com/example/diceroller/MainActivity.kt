@@ -77,12 +77,11 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         }) {
             Text(stringResource(R.string.roll))
         }
-        if (result == result2){
-            Text(
-                text = "You rolled a double $result",
-                textDecoration = TextDecoration.Underline
-            )
-        }
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+                text = doubleDice(imageResource,imageResource2,result.toString()),
+        textDecoration = TextDecoration.Underline
+        )
     }
 }
 
@@ -96,6 +95,14 @@ fun diceImage(result: Int): Int{
         else -> R.drawable.dice_6
     }
     return image
+}
+
+fun doubleDice(dice1: Int,dice2: Int,text: String): String{
+    return if (dice1 != dice2){
+        ""
+    }else {
+       "You rolled a double $text"
+    }
 }
 
 @Preview(showBackground = true)
