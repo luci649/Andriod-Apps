@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,7 +54,7 @@ fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
     ) {
         Text(
             text = message,
-            fontSize = 100.sp,
+            fontSize = 90.sp,
             lineHeight = 116.sp,
             textAlign = TextAlign.Center
         )
@@ -61,7 +62,7 @@ fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
             text = from,
             fontSize = 36.sp,
             modifier = modifier
-                .padding(8.dp)
+                .padding(16.dp)
                 .align(Alignment.End)
         )
     }
@@ -73,7 +74,9 @@ fun GreetingImage(message: String, from: String, modifier: Modifier = Modifier){
     Box(modifier) {
         Image(
             painter = image,
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            alpha = 0.5F
         )
         GreetingText(
             message = message,
