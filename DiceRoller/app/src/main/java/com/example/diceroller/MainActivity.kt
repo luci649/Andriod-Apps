@@ -16,13 +16,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.diceroller.ui.theme.DiceRollerTheme
@@ -75,6 +76,12 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
             result2 = (1..6).random()
         }) {
             Text(stringResource(R.string.roll))
+        }
+        if (result == result2){
+            Text(
+                text = "You rolled a double $result",
+                textDecoration = TextDecoration.Underline
+            )
         }
     }
 }
