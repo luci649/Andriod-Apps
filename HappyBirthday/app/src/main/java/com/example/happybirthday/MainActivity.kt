@@ -1,14 +1,12 @@
 package com.example.happybirthday
 
 import android.os.Bundle
-import android.os.Message
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -55,16 +53,20 @@ fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
     ) {
         Text(
             text = message,
-            fontSize = 90.sp,
+            fontSize = 100.sp,
             lineHeight = 116.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(top = 140.dp)
         )
         Text(
             text = from,
             fontSize = 36.sp,
+            textAlign = TextAlign.End,
             modifier = modifier
-                .padding(16.dp)
-                .align(Alignment.End)
+                .padding(top = 16.dp)
+                .padding(end = 16.dp)
+                .align(alignment =  Alignment.End)
         )
     }
 }
