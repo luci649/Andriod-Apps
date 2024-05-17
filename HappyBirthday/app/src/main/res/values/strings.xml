@@ -2,4 +2,6 @@
     <string name="app_name">Happy Birthday</string>
     <string name="happy_birthday_text">Happy Birthday Sam!</string>
     <string name="signature_text">From Emma</string>
+    <string name="signature2_text">From Leeds Beckett Computing</string>
+    <string name="merry_christmas_text">Merry Christmas</string>
 </resources>
