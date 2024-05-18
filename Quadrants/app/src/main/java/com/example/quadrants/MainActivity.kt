@@ -46,18 +46,18 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainPage(modifier: Modifier = Modifier) {
+fun MainPage() {
     Column(Modifier.fillMaxWidth()) {
         Row (Modifier.weight(1f)){
             Quadrant(
-                flag = painterResource(R.drawable.flag_of_belgium_svg),
+                flag = painterResource(R.drawable.belgium_country_flag),
                 title = stringResource(R.string.belgium_flag_title),
                 background = colorResource(R.color.quadrant_1_bg),
                 modifier = Modifier.weight(1f)
             )
             Quadrant(
-                flag = painterResource(R.drawable._200px_flag_of_malaysia),
-                title = stringResource(R.string.malaysia_flag_title),
+                flag = painterResource(R.drawable.flag_turkey),
+                title = stringResource(R.string.turkey_flag_title),
                 background = colorResource(R.color.quadrant_2_bg),
                 modifier = Modifier.weight(1f)
             )
@@ -105,7 +105,7 @@ fun Quadrant(
             text = title,
             textAlign = TextAlign.Justify,
             fontWeight = FontWeight.Bold,
-            modifier = modifier.padding(bottom = 16.dp)
+            modifier = modifier.padding(bottom = 16.dp, top = 16.dp)
         )
     }
 }

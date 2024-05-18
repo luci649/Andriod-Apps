@@ -11,7 +11,7 @@
     <string name="fourth_description">A layout composable that places its children in a vertical sequence.</string>
 
     <string name="belgium_flag_title">Belgium</string>
-    <string name="malaysia_flag_title">Malaysia</string>
+    <string name="turkey_flag_title">Turkey</string>
     <string name="tanzania_flag_title">Tanzania</string>
     <string name="Peru_flag_title">Peru</string>
 </resources>
