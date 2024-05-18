@@ -27,12 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.happybirthday.ui.theme.HappyBirthdayTheme
 
+val fontFamily = FontFamily(
+    Font(R.font.stylescript_regular)
+)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val fontFamily = FontFamily(
-            Font(R.font.galada)
-        )
         setContent {
             HappyBirthdayTheme {
                 // A surface container using the 'background' color from the theme
@@ -43,8 +43,6 @@ class MainActivity : ComponentActivity() {
                     GreetingImage(
                         message = stringResource(R.string.merry_christmas_text),
                         from = stringResource(R.string.signature2_text),
-                        fontFamily = fontFamily,
-                        modifier = Modifier.padding(8.dp)
                     )
                 }
             }
@@ -53,20 +51,20 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingText(message: String, from: String, fontFamily: FontFamily, modifier: Modifier = Modifier) {
+fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
     Column(
         verticalArrangement = Arrangement.Bottom,
         modifier = modifier
     ) {
         Text(
             text = message,
-            fontSize = 80.sp,
+            fontSize = 70.sp,
             lineHeight = 116.sp,
             textAlign = TextAlign.Center,
             fontFamily = fontFamily,
             color = Color.White,
             modifier = Modifier
-                .padding(top = 500.dp)
+                .padding(top = 400.dp)
         )
         Text(
             text = from,
@@ -83,8 +81,8 @@ fun GreetingText(message: String, from: String, fontFamily: FontFamily, modifier
 }
 
 @Composable
-fun GreetingImage(message: String, from: String,  fontFamily: FontFamily, modifier: Modifier = Modifier){
-    val image = painterResource(R.drawable.pexels_hertwashere_3224164)
+fun GreetingImage(message: String, from: String, modifier: Modifier = Modifier){
+    val image = painterResource(R.drawable.christmas)
 
     Box(modifier) {
         Image(
@@ -96,7 +94,6 @@ fun GreetingImage(message: String, from: String,  fontFamily: FontFamily, modifi
         GreetingText(
             message = message,
             from = from,
-            fontFamily = fontFamily,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(8.dp)
@@ -108,13 +105,9 @@ fun GreetingImage(message: String, from: String,  fontFamily: FontFamily, modifi
 @Composable
 fun GreetingPreview() {
     HappyBirthdayTheme {
-        val fontFamily = FontFamily(
-            Font(R.font.galada)
-        )
         GreetingImage(
             message = stringResource(R.string.merry_christmas_text),
-            from = stringResource(R.string.signature2_text),
-            fontFamily = fontFamily
+            from = stringResource(R.string.signature2_text)
         )
     }
 }
