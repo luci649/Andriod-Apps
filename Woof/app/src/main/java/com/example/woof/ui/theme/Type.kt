@@ -23,34 +23,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.woof.R
 
-val AbtilFatface = FontFamily(
-    Font(R.font.abril_fatface_regular)
+val Freehand = FontFamily(
+    Font(R.font.freehand_regular)
 )
 
-val Montserrat = FontFamily(
-    Font(R.font.montserrat_regular),
-    Font(R.font.montserrat_bold, FontWeight.Bold)
+val Freckleface = FontFamily(
+    Font(R.font.freckleface_regular),
 )
 
 // Set of Material typography styles to start with
 val Typography = Typography(
     displayLarge = TextStyle(
-        fontFamily = AbtilFatface,
+        fontFamily = Freehand,
         fontWeight = FontWeight.Normal,
         fontSize = 36.sp
     ),
     displayMedium = TextStyle(
-        fontFamily = Montserrat,
+        fontFamily = Freckleface,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = Montserrat,
+        fontFamily = Freckleface,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp
     ),
     bodyLarge = TextStyle(
-        fontFamily = Montserrat,
+        fontFamily = Freckleface,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp
     )
